@@ -53,7 +53,7 @@ def generate_data():
     try:
         # ID инкремент, поэтому формируется на стороне БД
         text = faker.text()
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M")
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.info('Данные успешно сгенерированы!')
         return text, current_time
     except Exception as error:
