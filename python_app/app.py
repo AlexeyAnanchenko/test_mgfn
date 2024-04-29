@@ -85,7 +85,7 @@ def clear_table(connection, cursor):
     try:
         # очистка таблицы и сброс последовательности
         cursor.execute("""
-            DELETE FROM public.t_test;
+            TRUNCATE TABLE public.t_test;
             ALTER SEQUENCE t_test_id_seq RESTART WITH 1;
         """)
         connection.commit()
