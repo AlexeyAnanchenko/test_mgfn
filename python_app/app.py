@@ -83,8 +83,11 @@ def clear_table(connection, cursor):
     """Очистка таблицы"""
 
     try:
-        # очистка таблицы со сбросом счетчика инкремента через Truncate
-        cursor.execute("TRUNCATE TABLE public.t_test;")
+        # очистка таблицы и сброс последовательности
+        cursor.execute("""
+            DELETE FROM public.t_test;
+            ALTER SEQUENCE t_test_id_seq RESTART WITH 1;
+        """)
         connection.commit()
         logger.info('Таблица успешно очищена!')
         return
