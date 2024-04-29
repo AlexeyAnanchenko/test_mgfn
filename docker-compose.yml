@@ -9,6 +9,9 @@ services:
     # связываем python_app c db, для получения доступа приложения к БД по имени
     links:
       - db
+    # смонтируем том с логами, чтобы видеть их не заходя в контейнер
+    volumes:
+      - ./python_app/logs:/opt/app/logs
   db:
     image: postgres:latest
     ports:

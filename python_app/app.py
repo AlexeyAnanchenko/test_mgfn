@@ -18,10 +18,13 @@ faker = Faker()
 # получаем объект логгера с именем модуля
 logger = logging.getLogger(__name__)
 # записывать будем в файл app_log.log
-fileHandler = logging.FileHandler(filename='app_log.log', encoding='utf-8')
+fileHandler = logging.FileHandler(
+    filename='logs/app_log.log',
+    encoding='utf-8'
+)
 # установка настроек логирования
 logging.basicConfig(
-    format='%(asctime)s (%(name)s) [%(levelname)s] - %(message)s',
+    format='%(asctime)s [%(levelname)s] - %(message)s',
     handlers=[fileHandler],
     level=logging.INFO
 )
