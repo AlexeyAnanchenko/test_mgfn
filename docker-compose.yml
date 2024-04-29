@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  python_app:
+    build: ./python_app
+    # python_app запустится после получения ответа о том, что db жив и работает
+    depends_on:
+      db:
+        condition: service_healthy
+    # связываем python_app c db, для получения доступа приложения к БД по имени
+    links:
+      - db
+  db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres_db
+    # при создании контейнера локальный файл init.sql прокинется внутрь и запустится автоматически
+    volumes:
+      - ./db_data/DDL_init.sql:/docker-entrypoint-initdb.d/DDL_init.sql
+    # команда проверки работоспособности контейнера db
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 30s
+      retries: 3
